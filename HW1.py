@@ -1,27 +1,16 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 #Rebecca Driever, Alayna Myrick, Jacqueleine Ngo, Ana Parra Vera
 
-
-# In[141]:
-
+### practice with regular expressions and web-scraping
 
 #load relevant packages
 import re
-
+import bs4 as bs
+import requests
 #input file path to mock data
 file_name = 'mock_data.csv'
 
+## transform birthday column from European (DD/MM/YYYY) to US date format (MM/DD YYYY)
 
-# In[142]:
-
-
-#question 1 part 1
-#read in the mock data 
 open_file = open(file_name,'r')
 #compile the birthday pattern
 pattern = re.compile(r'([0-9]{2})\.([0-9]{2})\.(20[0-9]{2})')
@@ -31,12 +20,8 @@ for line in open_file:
     print(new_line)
 open_file.close()
 
+## strip everything except the email column
 
-# In[143]:
-
-
-#question 1 part 2
-#read in the mock data 
 open_file = open(file_name,'r')
 #compile the email pattern
 pattern = re.compile(r'.*?,([-A-Za-z.]+@[-A-Za-z.]+).*')
@@ -46,12 +31,8 @@ for line in open_file:
     print(new_line)
 open_file.close()
 
+## convert all rows to "name[TAB]birthday" and strip the rest. birthday column should be in US date format. TABs allow you to copy and paste results into excel.
 
-# In[144]:
-
-
-#question 1 part 3
-#read in the mock data 
 open_file = open(file_name,'r')
 #compile the patterns
 pattern = re.compile(r'([0-9]{2})\.([0-9]{2})\.(20[0-9]{2}).*?([A-Za-z]+ [A-Z]\. [A-Za-z]+).*')
@@ -61,12 +42,8 @@ for line in open_file:
     print(new_line)
 open_file.close()
 
+## strip everything excepy lat_long and reorder entries to be "long[TAB]lat"
 
-# In[145]:
-
-
-#question 1 part 4
-#read in the mock data 
 open_file = open(file_name,'r')
 #compile the lat/long pattern
 pattern = re.compile(r'.*"(-?[0-9]+\.[0-9]+), (-?[0-9]+\.[0-9]+)".*')
@@ -77,17 +54,7 @@ for line in open_file:
 open_file.close()
 
 
-# In[146]:
-
-
-#question 2 
-#load relevant packages
-import bs4 as bs
-import requests
-
-
-# In[138]:
-
+## find US news top stories, read & print the URL of the second current top story to the screen. navigate to the webpage of the second top story, and print header as well as first 3 sentences of the main body to the screen
 
 #input original url
 url='https://www.usnews.com/'
@@ -134,11 +101,3 @@ sentences = all_text.split('.')
 print(header)
 for sentence in sentences[0:3]:
     print(sentence)
-
-
-# In[ ]:
-
-
-
-
-
