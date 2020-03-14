@@ -1,24 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
-# BAX 422 HW-2
-# Group 7
 # Michael Chen, Rebecca Driever, Rayna Ji
 
+### WEB-SCRAPING ###
 
-# In[2]:
-
-
-## PART A ## 
-# Use eBay URL, and fetch eBay's search result page for "samsung tv". 
-# Save the result to a file. Name the file as "ebay_samsung_tv_01.htm"
-
-
-# In[3]:
-
+## Scrape eBay website to find results for searching "samsung tv" and find sponsored vs non-sponsored search results.
 
 # import necessary packages
 from bs4 import BeautifulSoup
@@ -26,34 +13,20 @@ import requests
 import time
 
 
-# In[4]:
-
-
+# Use eBay URL, and fetch eBay's search result page for "samsung tv".
 # set URL 
 URL = "https://www.ebay.com/sch/samsumg+tv"
 # get html code
 r = requests.get(URL, headers={'user-agent': 'Mozilla/5.0'})
 
 
-# In[6]:
-
-
+# Save the result to a file. Name the file as "ebay_samsung_tv_01.htm"
 # create file and save html code to it
 with open("ebay_samsung_tv_01.htm", "w") as file:
     file.write(str(r.text))
 
 
-# In[7]:
-
-
-## PART B ##
-# Write a loop to download the first 10 pages of search results. 
-# Save each of these pages and name it as required. 
-# Each request is paused by 10 seconds.
-
-
-# In[9]:
-
+# Write a loop to download the first 10 pages of search results. Save each of these pages and name it as required. Each request is paused by 10 seconds.
 
 # set page number to start at 2 since we already have first page
 pgn = 2
@@ -79,20 +52,7 @@ while pgn <= 10:
     time.sleep(10)
 
 
-# In[ ]:
-
-
-## PART C ##
-# Loop through the pages you downloaded in (b) (i.e. the saved files)
-# open and parse them into an internal object of your 
-# programming language of choice. 
-# The object should allow you to select elements from it. 
-# Next, find the sponsored items on each search result page 
-# and print their URL to the screen.
-
-
-# In[10]:
-
+# Loop through the saved files, open and parse them into a BeautifulSoup object. Then find the sponsored items on each search result page and print their URL to the screen.
 
 # create new variable for page number
 pgn_r = 1
@@ -116,4 +76,3 @@ while pgn_r <= 10:
         for tv in sponsored:
             print(tv.parent['href'])
     pgn_r+=1
-
